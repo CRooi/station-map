@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "OPPOSans-M";
+    src: url("../assets/font/OPPOSans-M.ttf");
+}
+
+@font-face {
+    font-family: "OPPOSans-B";
+    src: url("../assets/font/OPPOSans-B.ttf");
+}
+
+@font-face {
+    font-family: "OPPOSans-H";
+    src: url("../assets/font/OPPOSans-H.ttf");
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #242424;
+    font-family: OPPOSans-M;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+
+.station {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #485053;
+    border-radius: 50%;
+    background-color: gray;
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+}
+
+.maplibregl-canvas {
+    cursor: default;
+}
+
+.maplibregl-ctrl-attrib {
+    display: none !important;
+}
