@@ -31,6 +31,10 @@ import Wave from './components/view/Wave.vue'
 
 import DataWorker from './components/worker/DataWorker.vue'
 import BottomRightContainer from './components/view/BottomRightContainer.vue'
+
+onMounted(() => {
+    document.addEventListener('contextmenu', event => event.preventDefault())
+})
 </script>
 
 <style>

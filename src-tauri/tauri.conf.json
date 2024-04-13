@@ -19,7 +19,7 @@
     },
     "windows": [
       {
-        "title": "ceiv-stationmap",
+        "title": "CEIV-StationMap",
         "width": 900,
         "height": 540,
         "minWidth": 900,
@@ -32,7 +32,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "cn.projectbs.ceiv-stationmap",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

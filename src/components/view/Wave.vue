@@ -16,6 +16,12 @@ interface ChartList {
     }
 }
 
+const resize = () => {
+    for (const name in DATA.wolfx.chartList) {
+        DATA.wolfx.chartList[name].chart.resize()
+    }
+}
+
 onMounted(() => {
     for (const name in DATA.wolfx.list) {
         DATA.wolfx.chartList[name] = {
@@ -23,6 +29,16 @@ onMounted(() => {
             value: new Array(60).fill(null)
         }
     }
+
+    window.addEventListener('resize', () => {
+        resize()
+    })
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', () => {
+        resize()
+    })
 })
 </script>
 
