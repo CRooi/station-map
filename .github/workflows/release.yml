@@ -25,6 +25,8 @@ jobs:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.commit_id.outputs.commit_id }}
           release_name: Release ${{ steps.commit_id.outputs.commit_id }}
@@ -65,5 +67,7 @@ jobs:
       # 这里的pubhome要修改为你package.json里面配置的编译命令
         run: npm install -g pnpm && pnpm install && pnpm tauri build
       - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
