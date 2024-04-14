@@ -1,14 +1,10 @@
-# 可选，将显示在 GitHub 存储库的“操作”选项卡中的工作流名称
 name: Release CI
 
-# 指定此工作流的触发器
 on:
   push:
     branches: [ master ]
 
-# 需要运行的作业组合
 jobs:
-  # 任务：创建 release 版本
   create-release:
     runs-on: ubuntu-latest
     outputs:
@@ -16,12 +12,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      # 查询版本号（tag）
+
       - name: Get commit ID
         id: commit_id
         run: echo "::set-output name=commit_id::$(git rev-parse --short HEAD)"
 
-      # 根据查询到的版本号创建 release
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -32,7 +27,6 @@ jobs:
           release_name: Release ${{ steps.commit_id.outputs.commit_id }}
           body: 'See the assets to download this version and install.'
 
-  # 编译 Tauri
   build-tauri:
     needs: create-release
     strategy:
@@ -44,28 +38,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-     # 安装 Node.js
       - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: 20
 
-      # 安装 Rust
       - name: Install Rust stable
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 
-      - name: install dependencies (ubuntu only)
+      - name: Install dependencies (Ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.0-dev libappindicator3-dev libasound2-dev librsvg2-dev patchelf
 
-      # 安装依赖执行构建，以及推送 github release
       - name: Install app dependencies and build it
-      # 这里的pubhome要修改为你package.json里面配置的编译命令
-        run: npm install -g pnpm && pnpm install && pnpm tauri build
+        run: |
+          if [ ${{ matrix.platform }} == 'windows-latest' ]; then
+            powershell -c "irm bun.sh/install.ps1 | iex" && bun i && bun tauri build
+          else
+            curl -fsSL https://bun.sh/install | bash && bun i && bun tauri build
+          fi
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
