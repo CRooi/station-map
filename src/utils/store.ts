@@ -3,8 +3,10 @@ import maplibre from 'maplibre-gl'
 
 interface ChartList {
     [key: string]: {
+        isFirst: boolean,
         chart: echarts.ECharts
-        value: number[]
+        value: number[],
+        rawValue: number[]
     }
 }
 

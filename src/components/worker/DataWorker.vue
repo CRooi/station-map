@@ -103,18 +103,30 @@ const setWolfxServer = () => {
 
             document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
             document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
-
-            DATA.wolfx.chartList[message.type].value.push(message.PGA)
-
-            if (DATA.wolfx.chartList[message.type].value.length > 60) {
-                DATA.wolfx.chartList[message.type].value.shift()
-            }
-
-            option.yAxis.max = Math.max(...DATA.wolfx.chartList[message.type].value.map(v => Math.abs(v))) * 1.1
-            option.yAxis.min = -option.yAxis.max
-            option.series[0].data = DATA.wolfx.chartList[message.type].value
-            DATA.wolfx.chartList[message.type].chart.setOption(option)
         }
+
+        DATA.wolfx.chartList[message.type].rawValue.push(message.PGA)
+
+        if (DATA.wolfx.chartList[message.type].rawValue.length > 60) {
+            DATA.wolfx.chartList[message.type].rawValue.shift()
+        }
+
+        if (DATA.wolfx.chartList[message.type].isFirst) {
+            DATA.wolfx.chartList[message.type].isFirst = false
+            return
+        }
+
+        DATA.wolfx.chartList[message.type].value.push(DATA.wolfx.chartList[message.type].rawValue[DATA.wolfx.chartList[message.type].rawValue.length - 2] - message.PGA)
+
+        option.yAxis.max = Math.max(...DATA.wolfx.chartList[message.type].value.map(v => Math.abs(v))) * 1.1
+        option.yAxis.min = -option.yAxis.max
+
+        if (DATA.wolfx.chartList[message.type].value.length > 60) {
+            DATA.wolfx.chartList[message.type].value.shift()
+        }
+        
+        option.series[0].data = DATA.wolfx.chartList[message.type].value
+        DATA.wolfx.chartList[message.type].chart.setOption(option)
     }
 
     wolfxServer.onclose = () => {
