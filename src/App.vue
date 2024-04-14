@@ -102,6 +102,7 @@ const cancelSettings = () => {
 const initSettings = () => {
     if (!localStorage.getItem('settings')) {
         localStorage.setItem('settings', JSON.stringify(settings))
+        isSettingsLoaded.value = true
         return
     }
 
