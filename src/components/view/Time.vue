@@ -1,5 +1,5 @@
 <template>
-    {{ DATA.time.replace(/-/g, '/') }}
+    <div>{{ DATA.time.replace(/-/g, '/') }}</div>
 </template>
 
 <script setup lang="ts">

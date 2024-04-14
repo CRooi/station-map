@@ -8,7 +8,7 @@
             <div class="absolute bottom-0 right-1 text-sm select-none cursor-default">南海诸岛</div>
         </div>
 
-        <BottomRightContainer class="absolute bottom-2 right-2 select-none cursor-default" />
+        <BottomRightContainer class="absolute bottom-1 right-2 select-none cursor-default" />
     </div>
 
     <div class="select-none cursor-pointer float-left max-h-screen w-[35%] p-1 overflow-hidden overflow-y-auto">
