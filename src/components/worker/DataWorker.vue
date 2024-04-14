@@ -70,7 +70,8 @@ const option = {
             lineStyle: {
                 color: '#fff',
                 width: 1.5
-            }
+            },
+            showSymbol: false
         }
     ],
     grid: {
