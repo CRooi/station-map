@@ -24,7 +24,8 @@ export const DATA = reactive({
 })
 
 export const settings = reactive({
-    show: {
-        type: 'shindo' as 'intensity' | 'shindo' | 'pga'
+    map: {
+        enabled: true,
+        type: 'intensity' as 'intensity' | 'shindo' | 'pga'
     }
 })

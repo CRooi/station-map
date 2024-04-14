@@ -1,6 +1,4 @@
-<template>
-
-</template>
+<template></template>
 
 <script setup lang="ts">
 import maplibre from 'maplibre-gl'
@@ -8,34 +6,12 @@ import * as echarts from 'echarts'
 import axios from 'axios'
 
 import { map, map2, DATA, settings } from '../../utils/store'
-import { calcIntensityColor, calcShindoColor } from '../../utils/function'
+import { calcIntensityColor, calcShindoColor, calcPgaColor } from '../../utils/function'
 
 
 let wolfxServer: WebSocket
 
 onMounted(async () => {
-    DATA.wolfx.list = (await axios.get(`https://api.wolfx.jp/seis_list.json?${Date.now()}`)).data
-
-    for (const name in DATA.wolfx.list) {
-        if (!DATA.wolfx.list[name].enable) continue
-
-        const el = document.createElement('div')
-        el.id = `wolfx-${name}`
-        el.className = 'station'
-
-        const el2 = document.createElement('div')
-        el2.id = `wolfx-${name}-2`
-        el2.className = 'station'
-
-        new maplibre.Marker({element: el})
-            .setLngLat([DATA.wolfx.list[name].longitude, DATA.wolfx.list[name].latitude])
-            .addTo(map.value)
-
-        new maplibre.Marker({element: el2})
-            .setLngLat([DATA.wolfx.list[name].longitude, DATA.wolfx.list[name].latitude])
-            .addTo(map2.value)
-    }
-
     setWolfxServer()
 })
 
@@ -98,12 +74,26 @@ const setWolfxServer = () => {
 
         DATA.wolfx.data[message.type] = message
 
-        if (settings.show.type === 'shindo') {
-            document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcShindoColor(message.Max_CalcShindo, message.Max_CalcShindo - Math.floor(message.Max_CalcShindo)) as string
-            document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcShindoColor(message.Max_CalcShindo, message.Max_CalcShindo - Math.floor(message.Max_CalcShindo)) as string
+        if (settings.map.enabled) {
+            if (settings.map.type === 'shindo') {
+                document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcShindoColor(message.Max_CalcShindo, message.Max_CalcShindo - Math.floor(message.Max_CalcShindo)) as string
+                document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcShindoColor(message.Max_CalcShindo, message.Max_CalcShindo - Math.floor(message.Max_CalcShindo)) as string
 
-            document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
-            document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
+                document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
+                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
+            } else if (settings.map.type === 'intensity') {
+                document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcIntensityColor(message.Max_CalcIntensity, message.Max_CalcIntensity - Math.floor(message.Max_CalcIntensity)) as string
+                document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcIntensityColor(message.Max_CalcIntensity, message.Max_CalcIntensity - Math.floor(message.Max_CalcIntensity)) as string
+
+                document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0)
+                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0)
+            } else if (settings.map.type === 'pga') {
+                document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
+                document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
+
+                document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.PGA + 10) * 10).toFixed(0)
+                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.PGA + 10) * 10).toFixed(0)
+            }
         }
 
         DATA.wolfx.chartList[message.type].rawValue.push(message.PGA)
@@ -117,7 +107,7 @@ const setWolfxServer = () => {
             return
         }
 
-        DATA.wolfx.chartList[message.type].value.push(DATA.wolfx.chartList[message.type].rawValue[DATA.wolfx.chartList[message.type].rawValue.length - 2] - message.PGA)
+        DATA.wolfx.chartList[message.type].value.push(message.PGA - DATA.wolfx.chartList[message.type].rawValue[DATA.wolfx.chartList[message.type].rawValue.length - 2])
 
         option.yAxis.max = Math.max(...DATA.wolfx.chartList[message.type].value.map(v => Math.abs(v))) * 1.1
         option.yAxis.min = -option.yAxis.max

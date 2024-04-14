@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "ceiv-stationmap",
-    "version": "0.0.0"
+    "productName": "CEIV-StationMap",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -19,7 +19,7 @@
     },
     "windows": [
       {
-        "title": "CEIV-StationMap",
+        "title": "CEIV StationMap",
         "width": 900,
         "height": 540,
         "minWidth": 900,

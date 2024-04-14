@@ -1,11 +1,10 @@
-<template>
-</template>
+<template></template>
 
 <script setup lang="ts">
 import maplibre from 'maplibre-gl'
 import axios from 'axios'
 
-import { map, map2 } from '../../utils/store'
+import { map, map2, DATA, settings } from '../../utils/store'
 
 onMounted(async () => {
     map.value = new maplibre.Map({
@@ -101,6 +100,30 @@ onMounted(async () => {
             if (i === 1000) clearInterval(interval)
         }, 10)
     })
+
+    DATA.wolfx.list = (await axios.get(`https://api.wolfx.jp/seis_list.json?${Date.now()}`)).data
+
+    if (settings.map.enabled) {
+        for (const name in DATA.wolfx.list) {
+            if (!DATA.wolfx.list[name].enable) continue
+
+            const el = document.createElement('div')
+            el.id = `wolfx-${name}`
+            el.className = 'station'
+
+            const el2 = document.createElement('div')
+            el2.id = `wolfx-${name}-2`
+            el2.className = 'station'
+
+            new maplibre.Marker({element: el})
+                .setLngLat([DATA.wolfx.list[name].longitude, DATA.wolfx.list[name].latitude])
+                .addTo(map.value)
+
+            new maplibre.Marker({element: el2})
+                .setLngLat([DATA.wolfx.list[name].longitude, DATA.wolfx.list[name].latitude])
+                .addTo(map2.value)
+        }
+    }
 })
 
 onBeforeUnmount(() => {
