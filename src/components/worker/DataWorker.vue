@@ -12,6 +12,8 @@ import { calcIntensityColor, calcShindoColor, calcPgaColor } from '../../utils/f
 let wolfxServer: WebSocket
 
 onMounted(async () => {
+    DATA.wolfx.list = (await axios.get(`https://api.wolfx.jp/seis_list.json?${Date.now()}`)).data
+    
     setWolfxServer()
 })
 
