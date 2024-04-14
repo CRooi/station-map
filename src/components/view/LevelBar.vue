@@ -6,7 +6,8 @@
         <div class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-4">
             <div v-for="(item, index) in new Array(10).fill(null)" :style="{top: `${12/10 * index}rem`, display: `${index ? 'block' : 'none'}`}" class="absolute w-full h-[1px] bg-[gray]"></div>
 
-            <div :style="{bottom, backgroundColor: `${calcShindoColor(max, max - Math.floor(max))}`}" class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{bottom: maxMaxCalcShindoBottom, backgroundColor: `${calcShindoColor(maxMaxCalcShindo, maxMaxCalcShindo - Math.floor(maxMaxCalcShindo))}`}" class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{bottom: maxCalcShindoBottom, backgroundColor: `${calcShindoColor(maxCalcShindo, maxCalcShindo - Math.floor(maxCalcShindo))}`}" class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
         </div>
 
         <div style="line-height: 0;" v-for="(item, index) in ['-3','-2','-1','0&nbsp;','1&nbsp;','2&nbsp;','3&nbsp;','4&nbsp;','5&nbsp;','6&nbsp;','7&nbsp;']" :style="{bottom: `${12/10 * index}rem`}" class="absolute text-xs right-0">
@@ -20,19 +21,34 @@
 import { DATA, settings } from '../../utils/store'
 import { calcIntensityColor, calcShindoColor } from '../../utils/function'
 
-const bottom = computed(() => {
-    if (max.value === -Infinity) return '0rem'
+const maxCalcShindoBottom = computed(() => {
+    if (maxCalcShindo.value === -Infinity) return '0rem'
 
     if (settings.show.type === 'shindo') {
         const level = 12 / 11
-        const value = max.value + 3
+        const value = maxCalcShindo.value + 3
 
         return `${value * level}rem`
     }
 })
 
-const max = computed(() => {
+const maxMaxCalcShindoBottom = computed(() => {
+    if (maxMaxCalcShindo.value === -Infinity) return '0rem'
+
+    if (settings.show.type === 'shindo') {
+        const level = 12 / 11
+        const value = maxMaxCalcShindo.value + 3
+
+        return `${value * level}rem`
+    }
+})
+
+const maxCalcShindo = computed(() => {
     return Math.max(...Object.values(DATA.wolfx.data).map((v: any) => v.CalcShindo))
+})
+
+const maxMaxCalcShindo = computed(() => {
+    return Math.max(...Object.values(DATA.wolfx.data).map((v: any) => v.Max_CalcShindo))
 })
 </script>
 

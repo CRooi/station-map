@@ -121,6 +121,11 @@ const setWolfxServer = () => {
         option.yAxis.max = Math.max(...DATA.wolfx.chartList[message.type].value.map(v => Math.abs(v))) * 1.1
         option.yAxis.min = -option.yAxis.max
 
+        if (option.yAxis.max < 1) {
+            option.yAxis.max = 1
+            option.yAxis.min = -1
+        }
+
         if (DATA.wolfx.chartList[message.type].value.length > 60) {
             DATA.wolfx.chartList[message.type].value.shift()
         }
