@@ -44,12 +44,12 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<style>
 .wave {
     height: 80px;
 }
 
 .wave div {
-    cursor: default;
+    cursor: default !important;
 }
 </style>
