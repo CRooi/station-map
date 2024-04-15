@@ -2,6 +2,8 @@
     <div class="rounded-md relative border border-[#485053] my-1" v-for="(_, name) in DATA.wolfx.list">
         <div class="wave" :id="`wolfx-${name}-wave`"></div>
         <div v-if="DATA.wolfx.chartList[name]" class="cursor-default absolute top-0.5 left-0.5 text-xs">{{ DATA.wolfx.list[name].location }} {{ String(name).split('_')[2] }}</div>
+
+        <!-- <div v-if="DATA.wolfx.chartList[name]" class="text-xs">{{ DATA.wolfx.chartList[name].rawValue }}</div> -->
     </div>
 </template>
 

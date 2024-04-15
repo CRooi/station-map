@@ -93,8 +93,8 @@ const setWolfxServer = () => {
                 document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
                 document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
 
-                document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.PGA + 10) * 10).toFixed(0)
-                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.PGA + 10) * 10).toFixed(0)
+                document.getElementById(`wolfx-${message.type}`)!.style.zIndex = (message.PGA * 100).toFixed(0)
+                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = (message.PGA * 100).toFixed(0)
             }
         }
 

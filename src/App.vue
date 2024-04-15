@@ -11,11 +11,7 @@
         <BottomRightContainer class="absolute bottom-1 right-0 select-none cursor-default" />
     </div>
 
-    <div v-if="isSettingsLoaded && settings.map.enabled" class="select-none cursor-default float-left max-h-screen w-[35%] p-1 overflow-hidden overflow-y-auto">
-        <Wave v-if="JSON.stringify(DATA.wolfx.list) !== '{}'" />
-    </div>
-
-    <div v-if="isSettingsLoaded && !settings.map.enabled" class="select-none cursor-default float-left max-h-screen w-[100%] p-1 overflow-hidden overflow-y-auto">
+    <div v-if="isSettingsLoaded" :class="`select-none cursor-default float-left max-h-screen ${settings.map.enabled ? 'w-[35%]' : 'w-[100%]'} w-[100%] p-1 overflow-hidden overflow-y-auto`">
         <Wave v-if="JSON.stringify(DATA.wolfx.list) !== '{}'" />
     </div>
 
@@ -72,6 +68,7 @@ import Wave from './components/view/Wave.vue'
 import BottomRightContainer from './components/view/BottomRightContainer.vue'
 
 import DataWorker from './components/worker/DataWorker.vue'
+import { resolve } from 'path'
 
 const isShowSettings = ref(false)
 const isSettingsLoaded = ref(false)
@@ -83,7 +80,9 @@ const settingsInput = reactive({
     }
 })
 
-const saveSettings = () => {
+const saveSettings = async () => {
+    await changeWindowSize()
+
     settings.map.enabled = settingsInput.map.enabled
     settings.map.type = settingsInput.map.type as 'intensity' | 'shindo' | 'pga'
 
@@ -176,13 +175,19 @@ onMounted(() => {
 })
 
 const changeWindowSize = async () => {
-    if (settings.map.enabled) {
+    if (settingsInput.map.enabled) {
         appWindow.setSize(new LogicalSize(900, 540))
         appWindow.setMinSize(new LogicalSize(900, 540))
+
+        await new Promise(resolve => setTimeout(resolve, 100))
 
         let i = 0
 
         const interval = setInterval(() => {
+            for (const name in DATA.wolfx.chartList) {
+                DATA.wolfx.chartList[name].chart.resize()
+            }
+
             map.value.fitBounds([[136.0765, 55.33], [72.4951, 15.58]], { animate: false })
             map2.value.fitBounds([[122.56, 23.74], [107.15, 2.68]], { animate: false })
 
@@ -193,12 +198,16 @@ const changeWindowSize = async () => {
     } else {
         appWindow.setSize(new LogicalSize(315, 540))
         appWindow.setMinSize(new LogicalSize(315, 540))
+
+        for (const name in DATA.wolfx.chartList) {
+            DATA.wolfx.chartList[name].chart.resize()
+        }
     }
 }
 
-watch(() => settings.map.enabled, () => {
-    changeWindowSize()
-})
+// watch(() => settings.map.enabled, () => {
+//     changeWindowSize()
+// })
 </script>
 
 <style>

@@ -54,7 +54,7 @@ const maxCalcIntensityBottom = computed(() => {
     const level = 12 / 16
     const value = maxCalcIntensity.value + 3
 
-    return `${value * level}rem`
+    return `${value * level - 0.25}rem`
 })
 
 const maxMaxCalcIntensityBottom = computed(() => {
@@ -65,7 +65,7 @@ const maxMaxCalcIntensityBottom = computed(() => {
     const level = 12 / 16
     const value = maxMaxCalcIntensity.value + 3
 
-    return `${value * level}rem`
+    return `${value * level - 0.25}rem`
 })
 
 const maxCalcShindoBottom = computed(() => {
@@ -74,7 +74,7 @@ const maxCalcShindoBottom = computed(() => {
     const level = 12 / 11
     const value = maxCalcShindo.value + 3
 
-    return `${value * level}rem`
+    return `${value * level - 0.25}rem`
 })
 
 const maxMaxCalcShindoBottom = computed(() => {
@@ -83,7 +83,7 @@ const maxMaxCalcShindoBottom = computed(() => {
     const level = 12 / 11
     const value = maxMaxCalcShindo.value + 3
 
-    return `${value * level}rem`
+    return `${value * level - 0.25}rem`
 })
 
 const maxPgaBottom = computed(() => {
@@ -111,7 +111,7 @@ const maxPgaBottom = computed(() => {
     else if (maxPga.value >= 500 && maxPga.value < 1000) value = 14 + (1 / (1000 - 500) * (maxPga.value - 500))
     else if (maxPga.value >= 1000) value = 15 + (1 / (2000 - 1000) * (maxPga.value - 1000))
 
-    return `${value * level}rem`
+    return `${value * level - 0.25}rem`
 })
 
 const maxMaxPgaBottom = computed(() => {
@@ -139,7 +139,7 @@ const maxMaxPgaBottom = computed(() => {
     else if (maxMaxPga.value >= 500 && maxMaxPga.value < 1000) value = 14 + (1 / (1000 - 500) * (maxMaxPga.value - 500))
     else if (maxMaxPga.value >= 1000) value = 15 + (1 / (2000 - 1000) * (maxMaxPga.value - 1000))
 
-    return `${value * level}rem`
+    return `${value * level - 0.25}rem`
 })
 
 const maxCalcIntensity = computed(() => {
