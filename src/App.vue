@@ -68,7 +68,6 @@ import Wave from './components/view/Wave.vue'
 import BottomRightContainer from './components/view/BottomRightContainer.vue'
 
 import DataWorker from './components/worker/DataWorker.vue'
-import { resolve } from 'path'
 
 const isShowSettings = ref(false)
 const isSettingsLoaded = ref(false)
