@@ -6,6 +6,4 @@
 import { DATA } from '../../utils/store'
 </script>
 
-<style>
-
-</style>
+<style></style>

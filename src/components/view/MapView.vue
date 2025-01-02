@@ -115,11 +115,11 @@ onMounted(async () => {
             el2.id = `wolfx-${name}-2`
             el2.className = 'station'
 
-            new maplibre.Marker({element: el})
+            new maplibre.Marker({ element: el })
                 .setLngLat([DATA.wolfx.list[name].longitude, DATA.wolfx.list[name].latitude])
                 .addTo(map.value)
 
-            new maplibre.Marker({element: el2})
+            new maplibre.Marker({ element: el2 })
                 .setLngLat([DATA.wolfx.list[name].longitude, DATA.wolfx.list[name].latitude])
                 .addTo(map2.value)
         }
@@ -145,6 +145,4 @@ const fitSouthChinaSeaBounds = () => {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

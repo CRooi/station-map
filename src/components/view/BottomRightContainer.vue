@@ -11,6 +11,4 @@ import LevelBar from './LevelBar.vue'
 import Time from './Time.vue'
 </script>
 
-<style>
-
-</style>
+<style></style>

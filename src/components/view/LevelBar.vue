@@ -4,38 +4,59 @@
         <div class="text-xs mb-1" v-if="settings.map.type === 'shindo'">震度 Int.</div>
         <div class="text-xs mb-1" v-if="settings.map.type === 'pga'">峰值加速度 PGA</div>
 
-        <div v-if="settings.map.type === 'intensity'" class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-6">
-            <div v-for="(item, index) in new Array(15).fill(null)" :style="{top: `${12/15 * index}rem`, display: `${index ? 'block' : 'none'}`}" class="absolute w-full h-[1px] bg-[gray]"></div>
+        <div v-if="settings.map.type === 'intensity'"
+            class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-6">
+            <div v-for="(item, index) in new Array(15).fill(null)"
+                :style="{ top: `${12 / 15 * index}rem`, display: `${index ? 'block' : 'none'}` }"
+                class="absolute w-full h-[1px] bg-[gray]"></div>
 
-            <div :style="{bottom: maxMaxCalcIntensityBottom, backgroundColor: `${calcIntensityColor(maxMaxCalcShindo, maxMaxCalcShindo - Math.floor(maxMaxCalcShindo))}`}" class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
-            <div :style="{bottom: maxCalcIntensityBottom, backgroundColor: `${calcIntensityColor(maxCalcShindo, maxCalcShindo - Math.floor(maxCalcShindo))}`}" class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{ bottom: maxMaxCalcIntensityBottom, backgroundColor: `${calcIntensityColor(maxMaxCalcShindo, maxMaxCalcShindo - Math.floor(maxMaxCalcShindo))}` }"
+                class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{ bottom: maxCalcIntensityBottom, backgroundColor: `${calcIntensityColor(maxCalcShindo, maxCalcShindo - Math.floor(maxCalcShindo))}` }"
+                class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
         </div>
 
-        <div v-if="settings.map.type === 'intensity'" style="line-height: 0;" v-for="(item, index) in ['-3&nbsp;','-2&nbsp;','-1&nbsp;','0&nbsp;&nbsp;&nbsp;','1&nbsp;&nbsp;&nbsp;','2&nbsp;&nbsp;&nbsp;','3&nbsp;&nbsp;&nbsp;','4&nbsp;&nbsp;&nbsp;','5&nbsp;&nbsp;&nbsp;','6&nbsp;&nbsp;&nbsp;','7&nbsp;&nbsp;&nbsp;','8&nbsp;&nbsp;&nbsp;','9&nbsp;&nbsp;&nbsp;','10&nbsp;','11&nbsp;','12&nbsp;']" :style="{bottom: `${12/15 * index}rem`}" class="absolute text-xs right-0">
-            <div style="line-height: 1rem;">&nbsp;</div>
-            <div class="mb-7">{{ item }}</div>
-        </div>
-        
-        <div v-if="settings.map.type === 'shindo'" class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-4">
-            <div v-for="(item, index) in new Array(10).fill(null)" :style="{top: `${12/10 * index}rem`, display: `${index ? 'block' : 'none'}`}" class="absolute w-full h-[1px] bg-[gray]"></div>
-
-            <div :style="{bottom: maxMaxCalcShindoBottom, backgroundColor: `${calcShindoColor(maxMaxCalcShindo, maxMaxCalcShindo - Math.floor(maxMaxCalcShindo))}`}" class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
-            <div :style="{bottom: maxCalcShindoBottom, backgroundColor: `${calcShindoColor(maxCalcShindo, maxCalcShindo - Math.floor(maxCalcShindo))}`}" class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
-        </div>
-
-        <div v-if="settings.map.type === 'shindo'" style="line-height: 0;" v-for="(item, index) in ['-3','-2','-1','0&nbsp;','1&nbsp;','2&nbsp;','3&nbsp;','4&nbsp;','5&nbsp;','6&nbsp;','7&nbsp;']" :style="{bottom: `${12/10 * index}rem`}" class="absolute text-xs right-0">
+        <div v-if="settings.map.type === 'intensity'" style="line-height: 0;"
+            v-for="(item, index) in ['-3&nbsp;', '-2&nbsp;', '-1&nbsp;', '0&nbsp;&nbsp;&nbsp;', '1&nbsp;&nbsp;&nbsp;', '2&nbsp;&nbsp;&nbsp;', '3&nbsp;&nbsp;&nbsp;','4&nbsp;&nbsp;&nbsp;','5&nbsp;&nbsp;&nbsp;','6&nbsp;&nbsp;&nbsp;','7&nbsp;&nbsp;&nbsp;','8&nbsp;&nbsp;&nbsp;','9&nbsp;&nbsp;&nbsp;','10&nbsp;','11&nbsp;','12&nbsp;']"
+            :style="{ bottom: `${12 / 15 * index}rem` }" class="absolute text-xs right-0">
             <div style="line-height: 1rem;">&nbsp;</div>
             <div class="mb-7">{{ item }}</div>
         </div>
 
-        <div v-if="settings.map.type === 'pga'" class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-9">
-            <div v-for="(item, index) in new Array(15).fill(null)" :style="{top: `${12/15 * index}rem`, display: `${index ? 'block' : 'none'}`}" class="absolute w-full h-[1px] bg-[gray]"></div>
+        <div v-if="settings.map.type === 'shindo'"
+            class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-4">
+            <div v-for="(item, index) in new Array(10).fill(null)"
+                :style="{ top: `${12 / 10 * index}rem`, display: `${index ? 'block' : 'none'}` }"
+                class="absolute w-full h-[1px] bg-[gray]"></div>
 
-            <div :style="{bottom: maxMaxPgaBottom, backgroundColor: `${calcPgaColor(maxMaxPga)}`}" class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
-            <div :style="{bottom: maxPgaBottom, backgroundColor: `${calcPgaColor(maxPga)}`}" class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{ bottom: maxMaxCalcShindoBottom, backgroundColor: `${calcShindoColor(maxMaxCalcShindo, maxMaxCalcShindo - Math.floor(maxMaxCalcShindo))}` }"
+                class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{ bottom: maxCalcShindoBottom, backgroundColor: `${calcShindoColor(maxCalcShindo, maxCalcShindo - Math.floor(maxCalcShindo))}` }"
+                class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
         </div>
 
-        <div v-if="settings.map.type === 'pga'" style="line-height: 0;" v-for="(item, index) in ['0.01&nbsp;','0.02&nbsp;','0.05&nbsp;','0.1&nbsp;&nbsp;&nbsp;','0.2&nbsp;&nbsp;&nbsp;','0.5&nbsp;&nbsp;&nbsp;','1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','10&nbsp;&nbsp;&nbsp;&nbsp;','20&nbsp;&nbsp;&nbsp;&nbsp;','50&nbsp;&nbsp;&nbsp;&nbsp;','100&nbsp;&nbsp;','200&nbsp;&nbsp;','500&nbsp;&nbsp;','1000']" :style="{bottom: `${12/15 * index}rem`}" class="absolute text-xs right-0">
+        <div v-if="settings.map.type === 'shindo'" style="line-height: 0;"
+            v-for="(item, index) in ['-3', '-2', '-1', '0&nbsp;', '1&nbsp;', '2&nbsp;', '3&nbsp;','4&nbsp;','5&nbsp;','6&nbsp;','7&nbsp;']"
+            :style="{ bottom: `${12 / 10 * index}rem` }" class="absolute text-xs right-0">
+            <div style="line-height: 1rem;">&nbsp;</div>
+            <div class="mb-7">{{ item }}</div>
+        </div>
+
+        <div v-if="settings.map.type === 'pga'"
+            class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-9">
+            <div v-for="(item, index) in new Array(15).fill(null)"
+                :style="{ top: `${12 / 15 * index}rem`, display: `${index ? 'block' : 'none'}` }"
+                class="absolute w-full h-[1px] bg-[gray]"></div>
+
+            <div :style="{ bottom: maxMaxPgaBottom, backgroundColor: `${calcPgaColor(maxMaxPga)}` }"
+                class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+            <div :style="{ bottom: maxPgaBottom, backgroundColor: `${calcPgaColor(maxPga)}` }"
+                class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
+        </div>
+
+        <div v-if="settings.map.type === 'pga'" style="line-height: 0;"
+            v-for="(item, index) in ['0.01&nbsp;', '0.02&nbsp;', '0.05&nbsp;', '0.1&nbsp;&nbsp;&nbsp;', '0.2&nbsp;&nbsp;&nbsp;', '0.5&nbsp;&nbsp;&nbsp;', '1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','10&nbsp;&nbsp;&nbsp;&nbsp;','20&nbsp;&nbsp;&nbsp;&nbsp;','50&nbsp;&nbsp;&nbsp;&nbsp;','100&nbsp;&nbsp;','200&nbsp;&nbsp;','500&nbsp;&nbsp;','1000']"
+            :style="{ bottom: `${12 / 15 * index}rem` }" class="absolute text-xs right-0">
             <div style="line-height: 1rem;">&nbsp;</div>
             <div class="mb-7">{{ item }}</div>
         </div>
@@ -169,20 +190,18 @@ const maxMaxPga = computed(() => {
 
 <style scoped>
 .background {
-    background: linear-gradient(
-        to bottom,
-        rgb(170, 0, 0),
-        rgb(177, 0, 0),
-        rgb(246, 6, 0),
-        rgb(255, 75, 0),
-        rgb(255, 151, 0),
-        rgb(255, 224, 0),
-        rgb(248, 255, 1),
-        rgb(176, 254, 16),
-        rgb(56, 245, 62),
-        rgb(0, 194, 150),
-        rgb(0, 64, 245),
-        rgb(0, 0, 205)
-    );
+    background: linear-gradient(to bottom,
+            rgb(170, 0, 0),
+            rgb(177, 0, 0),
+            rgb(246, 6, 0),
+            rgb(255, 75, 0),
+            rgb(255, 151, 0),
+            rgb(255, 224, 0),
+            rgb(248, 255, 1),
+            rgb(176, 254, 16),
+            rgb(56, 245, 62),
+            rgb(0, 194, 150),
+            rgb(0, 64, 245),
+            rgb(0, 0, 205));
 }
 </style>

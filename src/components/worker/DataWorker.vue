@@ -11,7 +11,7 @@ let wolfxServer: WebSocket
 
 onMounted(async () => {
     DATA.wolfx.list = (await axios.get(`https://wolfx.jp/seis_list.json?${Date.now()}`)).data
-    
+
     setWolfxServer()
 })
 
@@ -124,7 +124,7 @@ const setWolfxServer = () => {
         if (DATA.wolfx.chartList[message.type].value.length > 60) {
             DATA.wolfx.chartList[message.type].value.shift()
         }
-        
+
         option.series[0].data = DATA.wolfx.chartList[message.type].value
         DATA.wolfx.chartList[message.type].chart.setOption(option)
     }
@@ -137,6 +137,4 @@ const setWolfxServer = () => {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
