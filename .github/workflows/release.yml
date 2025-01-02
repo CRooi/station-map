@@ -4,7 +4,7 @@ name: Release CI
 # 指定此工作流的触发器
 on:
   push:
-    branches: [ master ]
+    branches: [ live ]
 
 # 需要运行的作业组合
 jobs:
