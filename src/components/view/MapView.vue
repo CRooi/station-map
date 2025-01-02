@@ -101,7 +101,7 @@ onMounted(async () => {
         }, 10)
     })
 
-    DATA.wolfx.list = (await axios.get(`https://api.wolfx.jp/seis_list.json?${Date.now()}`)).data
+    DATA.wolfx.list = (await axios.get(`https://wolfx.jp/seis_list.json?${Date.now()}`)).data
 
     if (settings.map.enabled) {
         for (const name in DATA.wolfx.list) {

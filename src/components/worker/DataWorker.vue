@@ -1,18 +1,16 @@
 <template></template>
 
 <script setup lang="ts">
-import maplibre from 'maplibre-gl'
-import * as echarts from 'echarts'
 import axios from 'axios'
 
-import { map, map2, DATA, settings } from '../../utils/store'
+import { DATA, settings } from '../../utils/store'
 import { calcIntensityColor, calcShindoColor, calcPgaColor } from '../../utils/function'
 
 
 let wolfxServer: WebSocket
 
 onMounted(async () => {
-    DATA.wolfx.list = (await axios.get(`https://api.wolfx.jp/seis_list.json?${Date.now()}`)).data
+    DATA.wolfx.list = (await axios.get(`https://wolfx.jp/seis_list.json?${Date.now()}`)).data
     
     setWolfxServer()
 })
@@ -63,12 +61,16 @@ const option = {
 }
 
 const setWolfxServer = () => {
-    wolfxServer = new WebSocket('wss://seis.wolfx.jp/all_seis')
-    
+    wolfxServer = new WebSocket('wss://seis-api-v2.wolfx.jp/all_seis')
+
+    wolfxServer.onopen = event => {
+        wolfxServer.send("cea5b1bf-64c5-4559-8a8e-866a45307dfa")
+    }
+
     wolfxServer.onmessage = e => {
         const message = JSON.parse(e.data)
 
-        if (message.type === 'CQ_BEB_01') {
+        if (message.type === 'CQ_BEB_00') {
             DATA.time = message.update_at
         }
 
