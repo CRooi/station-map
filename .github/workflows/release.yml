@@ -4,7 +4,7 @@ name: Release CI
 # 指定此工作流的触发器
 on:
   push:
-    branches: [ live ]
+    branches: [ "**" ]
 
 # 需要运行的作业组合
 jobs:
@@ -42,8 +42,8 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: oven-sh/setup-bun@v1
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
 
       # 安装 Rust
       - name: Install Rust stable

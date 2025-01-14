@@ -128,7 +128,7 @@ onMounted(() => {
     settingsInput.map.enabled = settings.map.enabled
     settingsInput.map.type = settings.map.type
 
-    document.addEventListener('contextmenu', async e => {
+    /* document.addEventListener('contextmenu', async e => {
         e.preventDefault()
 
         showMenu({
@@ -163,7 +163,7 @@ onMounted(() => {
                 }
             ]
         })
-    })
+    }) */
 
     if (settings.map.enabled) {
         appWindow.setSize(new LogicalSize(900, 540))

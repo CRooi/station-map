@@ -61,16 +61,12 @@ const option = {
 }
 
 const setWolfxServer = () => {
-    wolfxServer = new WebSocket('wss://seis-api-v2.wolfx.jp/all_seis')
-
-    wolfxServer.onopen = event => {
-        wolfxServer.send("cea5b1bf-64c5-4559-8a8e-866a45307dfa")
-    }
+    wolfxServer = new WebSocket('wss://seisjs.wolfx.jp/all_seis')
 
     wolfxServer.onmessage = e => {
         const message = JSON.parse(e.data)
 
-        if (message.type === 'CQ_BEB_00') {
+        if (message.type === '3ac89d51-eace-4a58-b5c1-72162604fe86') {
             DATA.time = message.update_at
         }
 
