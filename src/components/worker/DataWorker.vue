@@ -81,12 +81,12 @@ const setWolfxServer = () => {
 
                 document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
                 document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
-            } else if (settings.map.type === 'intensity') {
+            /* } else if (settings.map.type === 'intensity') {
                 document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcIntensityColor(message.Max_CalcIntensity, message.Max_CalcIntensity - Math.floor(message.Max_CalcIntensity)) as string
                 document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcIntensityColor(message.Max_CalcIntensity, message.Max_CalcIntensity - Math.floor(message.Max_CalcIntensity)) as string
 
                 document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0)
-                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0)
+                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0) */
             } else if (settings.map.type === 'pga') {
                 document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
                 document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcPgaColor(message.PGA) as string

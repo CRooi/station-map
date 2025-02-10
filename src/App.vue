@@ -38,7 +38,6 @@
                     <div>展示数据类型</div>
 
                     <t-select size="small" v-model="settingsInput.map.type" class="max-w-48">
-                        <t-option key="intensity" label="烈度(CSIS)" value="intensity" />
                         <t-option key="shindo" label="震度(JMA)" value="shindo" />
                         <t-option key="pga" label="峰值加速度(PGA)" value="pga" />
                     </t-select>
@@ -75,7 +74,7 @@ const isSettingsLoaded = ref(false)
 const settingsInput = reactive({
     map: {
         enabled: true,
-        type: 'intensity'
+        type: 'shindo'
     }
 })
 
@@ -83,7 +82,7 @@ const saveSettings = async () => {
     await changeWindowSize()
 
     settings.map.enabled = settingsInput.map.enabled
-    settings.map.type = settingsInput.map.type as 'intensity' | 'shindo' | 'pga'
+    settings.map.type = settingsInput.map.type as 'shindo' | 'pga'
 
     localStorage.setItem('settings', JSON.stringify(settings))
 
@@ -113,7 +112,7 @@ const initSettings = () => {
     if (JSON.parse(localStorage.getItem('settings')!).map.type) {
         settings.map.type = JSON.parse(localStorage.getItem('settings')!).map.type
     } else {
-        settings.map.type = 'intensity'
+        settings.map.type = 'shindo'
     }
 
     isSettingsLoaded.value = true
