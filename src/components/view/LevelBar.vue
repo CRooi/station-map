@@ -1,10 +1,10 @@
 <template>
     <div class="flex items-end flex-col">
-        <div class="text-xs mb-1" v-if="settings.map.type === 'intensity'">烈度 Int.</div>
+        <!--<div class="text-xs mb-1" v-if="settings.map.type === 'intensity'">烈度 Int.</div>-->
         <div class="text-xs mb-1" v-if="settings.map.type === 'shindo'">震度 Int.</div>
         <div class="text-xs mb-1" v-if="settings.map.type === 'pga'">峰值加速度 PGA</div>
 
-        <div v-if="settings.map.type === 'intensity'"
+        <!--<div v-if="settings.map.type === 'intensity'"
             class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-6">
             <div v-for="(item, index) in new Array(15).fill(null)"
                 :style="{ top: `${12 / 15 * index}rem`, display: `${index ? 'block' : 'none'}` }"
@@ -21,7 +21,7 @@
             :style="{ bottom: `${12 / 15 * index}rem` }" class="absolute text-xs right-0">
             <div style="line-height: 1rem;">&nbsp;</div>
             <div class="mb-7">{{ item }}</div>
-        </div>
+        </div>-->
 
         <div v-if="settings.map.type === 'shindo'"
             class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-4">
