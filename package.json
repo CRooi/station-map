@@ -1,7 +1,7 @@
 {
   "name": "ceiv-stationmap",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,6 +14,7 @@
     "@types/d3": "^7.4.3",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
+    "caniuse-lite": "",
     "d3": "^7.9.0",
     "echarts": "^5.5.0",
     "maplibre-gl": "^4.1.2",

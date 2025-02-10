@@ -8,6 +8,7 @@
 // }
 
 fn main() {
+    #[allow(unused_imports)]
     use tauri::Manager;
 
     tauri::Builder::default()
@@ -27,6 +28,11 @@ fn main() {
                             api.prevent_close();
                             tauri::AppHandle::hide(&event.window().app_handle()).unwrap()
                         }
+                    }
+                    #[cfg(target_os = "linux")]
+                    {
+                        event.window().hide().unwrap();
+                        api.prevent_close();
                     }
                 }
             }

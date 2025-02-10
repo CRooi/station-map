@@ -11,7 +11,8 @@
         <BottomRightContainer class="absolute bottom-1 right-0 select-none cursor-default" />
     </div>
 
-    <div v-if="isSettingsLoaded" :class="`select-none cursor-default float-left max-h-screen ${settings.map.enabled ? 'w-[35%]' : 'w-[100%]'} w-[100%] p-1 overflow-hidden overflow-y-auto`">
+    <div v-if="isSettingsLoaded"
+        :class="`select-none cursor-default float-left max-h-screen ${settings.map.enabled ? 'w-[35%]' : 'w-[100%]'} w-[100%] p-1 overflow-hidden overflow-y-auto`">
         <Wave v-if="JSON.stringify(DATA.wolfx.list) !== '{}'" />
     </div>
 
@@ -46,7 +47,7 @@
 
             <div class="absolute bottom-2 right-2 flex">
                 <t-button theme="default" @click="saveSettings()">保存并退出</t-button>
-                
+
                 <div class="ml-2">
                     <t-button @click="cancelSettings()">取消</t-button>
                 </div>
@@ -57,8 +58,7 @@
 
 <script setup lang="ts">
 import { appWindow, LogicalSize } from '@tauri-apps/api/window'
-import maplibre from 'maplibre-gl'
-import { onEventShowMenu, showMenu } from 'tauri-plugin-context-menu'
+import { showMenu } from 'tauri-plugin-context-menu'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 import { map, map2, DATA, settings } from './utils/store'
@@ -129,7 +129,7 @@ onMounted(() => {
 
     document.addEventListener('contextmenu', async e => {
         e.preventDefault()
-        
+
         showMenu({
             pos: {
                 x: e.clientX,
