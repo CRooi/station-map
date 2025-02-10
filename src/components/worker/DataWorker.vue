@@ -66,7 +66,7 @@ const setWolfxServer = () => {
     wolfxServer.onmessage = e => {
         const message = JSON.parse(e.data)
 
-        if (message.type === 'cea5b1bf-64c5-4559-8a8e-866a45307dfa') {
+        if (message.type === '3ac89d51-eace-4a58-b5c1-72162604fe86') {
             DATA.time = message.update_at
         }
 
