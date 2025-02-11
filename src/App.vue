@@ -38,8 +38,8 @@
                     <div>展示数据类型</div>
 
                     <t-select size="small" v-model="settingsInput.map.type" class="max-w-48">
-                        <t-option key="shindo" label="震度(JMA)" value="shindo" />
-                        <t-option key="pga" label="峰值加速度(PGA)" value="pga" />
+                        <t-option key="shindo" label="震度 (JMA)" value="shindo" />
+                        <t-option key="pga" label="峰值加速度 (PGA)" value="pga" />
                     </t-select>
                 </div>
             </div>
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { appWindow, LogicalSize } from '@tauri-apps/api/window'
 import { showMenu } from 'tauri-plugin-context-menu'
+import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 import { map, map2, DATA, settings } from './utils/store'
@@ -186,8 +187,20 @@ const changeWindowSize = async () => {
                 DATA.wolfx.chartList[name].chart.resize()
             }
 
-            map.value.fitBounds([[136.0765, 55.33], [72.4951, 15.58]], { animate: false })
-            map2.value.fitBounds([[122.56, 23.74], [107.15, 2.68]], { animate: false })
+            map.value.fitBounds(
+                [
+                    new maplibregl.LngLat(72.4951, 15.58),
+                    new maplibregl.LngLat(136.0765, 55.33)
+                ],
+                { animate: false }
+            )
+            map2.value.fitBounds(
+                [
+                    new maplibregl.LngLat(107.15, 2.68),
+                    new maplibregl.LngLat(122.56, 23.74)
+                ],
+                { animate: false }
+            )
 
             i += 10
 
