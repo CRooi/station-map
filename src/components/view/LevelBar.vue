@@ -1,6 +1,5 @@
 <template>
     <div class="flex items-end flex-col">
-        <!--<div class="text-xs mb-1" v-if="settings.map.type === 'intensity'">烈度 Int.</div>-->
         <div class="text-xs mb-1" v-if="settings.map.type === 'shindo'">震度 Int.</div>
         <div class="text-xs mb-1" v-if="settings.map.type === 'pga'">峰值加速度 PGA</div>
 
