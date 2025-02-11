@@ -2,8 +2,6 @@
 
 Visualizer for Wolfx SeisJS.
 
-## Screenshot
-
 ![image](https://github.com/CRooi/station-map/blob/master/screenshots/main.png?raw=true)
 
 ## For Developers
