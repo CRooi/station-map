@@ -4,25 +4,6 @@
         <div class="text-xs mb-1" v-if="settings.map.type === 'shindo'">震度 Int.</div>
         <div class="text-xs mb-1" v-if="settings.map.type === 'pga'">峰值加速度 PGA</div>
 
-        <!--<div v-if="settings.map.type === 'intensity'"
-            class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-6">
-            <div v-for="(item, index) in new Array(15).fill(null)"
-                :style="{ top: `${12 / 15 * index}rem`, display: `${index ? 'block' : 'none'}` }"
-                class="absolute w-full h-[1px] bg-[gray]"></div>
-
-            <div :style="{ bottom: maxMaxCalcIntensityBottom, backgroundColor: `${calcIntensityColor(maxMaxCalcShindo, maxMaxCalcShindo - Math.floor(maxMaxCalcShindo))}` }"
-                class="opacity-60 absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
-            <div :style="{ bottom: maxCalcIntensityBottom, backgroundColor: `${calcIntensityColor(maxCalcShindo, maxCalcShindo - Math.floor(maxCalcShindo))}` }"
-                class="absolute -ml-[0.3125rem] w-5 h-2 rounded-md border border-[#485053]"></div>
-        </div>
-
-        <div v-if="settings.map.type === 'intensity'" style="line-height: 0;"
-            v-for="(item, index) in ['-3&nbsp;', '-2&nbsp;', '-1&nbsp;', '0&nbsp;&nbsp;&nbsp;', '1&nbsp;&nbsp;&nbsp;', '2&nbsp;&nbsp;&nbsp;', '3&nbsp;&nbsp;&nbsp;','4&nbsp;&nbsp;&nbsp;','5&nbsp;&nbsp;&nbsp;','6&nbsp;&nbsp;&nbsp;','7&nbsp;&nbsp;&nbsp;','8&nbsp;&nbsp;&nbsp;','9&nbsp;&nbsp;&nbsp;','10&nbsp;','11&nbsp;','12&nbsp;']"
-            :style="{ bottom: `${12 / 15 * index}rem` }" class="absolute text-xs right-0">
-            <div style="line-height: 1rem;">&nbsp;</div>
-            <div class="mb-7">{{ item }}</div>
-        </div>-->
-
         <div v-if="settings.map.type === 'shindo'"
             class="mb-1 relative w-3 h-48 border border-[#485053] rounded-lg background mr-4">
             <div v-for="(item, index) in new Array(10).fill(null)"

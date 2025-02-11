@@ -1,45 +1,45 @@
 {
-  "build": {
-    "beforeDevCommand": "bun run dev",
-    "beforeBuildCommand": "bun run build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist"
-  },
-  "package": {
-    "productName": "CEIV-StationMap",
-    "version": "0.0.3"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": true,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+    "build": {
+        "beforeDevCommand": "bun run dev",
+        "beforeBuildCommand": "bun run build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist"
     },
-    "windows": [
-      {
-        "title": "CEIV StationMap",
-        "width": 900,
-        "height": 540,
-        "minWidth": 900,
-        "minHeight": 540
-      }
-    ],
-    "security": {
-      "csp": null
+    "package": {
+        "productName": "station-map",
+        "version": "0.0.3"
     },
-    "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "cn.projectbs.ceiv-stationmap",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ]
+    "tauri": {
+        "allowlist": {
+            "all": true,
+            "shell": {
+                "all": false,
+                "open": true
+            }
+        },
+        "windows": [
+            {
+                "title": "Station Map",
+                "width": 900,
+                "height": 540,
+                "minWidth": 900,
+                "minHeight": 540
+            }
+        ],
+        "security": {
+            "csp": null
+        },
+        "bundle": {
+            "active": true,
+            "targets": "all",
+            "identifier": "io.crooi.station-map",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ]
+        }
     }
-  }
 }

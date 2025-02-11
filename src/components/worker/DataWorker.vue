@@ -4,7 +4,7 @@
 import axios from 'axios'
 
 import { DATA, settings } from '../../utils/store'
-import { calcIntensityColor, calcShindoColor, calcPgaColor } from '../../utils/function'
+import { calcShindoColor, calcPgaColor } from '../../utils/function'
 
 
 let wolfxServer: WebSocket
@@ -32,9 +32,6 @@ const option = {
         splitLine: {
             show: false
         },
-        // axisLabel: {
-        //     show: false
-        // },
         type: 'value',
         max: 0.3,
         min: -0.3
@@ -81,12 +78,6 @@ const setWolfxServer = () => {
 
                 document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
                 document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcShindo + 10) * 10).toFixed(0)
-            /* } else if (settings.map.type === 'intensity') {
-                document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcIntensityColor(message.Max_CalcIntensity, message.Max_CalcIntensity - Math.floor(message.Max_CalcIntensity)) as string
-                document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcIntensityColor(message.Max_CalcIntensity, message.Max_CalcIntensity - Math.floor(message.Max_CalcIntensity)) as string
-
-                document.getElementById(`wolfx-${message.type}`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0)
-                document.getElementById(`wolfx-${message.type}-2`)!.style.zIndex = ((message.Max_CalcIntensity + 10) * 10).toFixed(0) */
             } else if (settings.map.type === 'pga') {
                 document.getElementById(`wolfx-${message.type}`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
                 document.getElementById(`wolfx-${message.type}-2`)!.style.backgroundColor = calcPgaColor(message.PGA) as string
