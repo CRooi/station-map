@@ -1,40 +1,38 @@
-# 可选，将显示在 GitHub 存储库的“操作”选项卡中的工作流名称
 name: Release CI
 
-# 指定此工作流的触发器
 on:
   push:
     tags:
       - "**"
 
-# 需要运行的作业组合
 jobs:
-  # 任务：创建 release 版本
   create-release:
+    permissions: write-all
     runs-on: ubuntu-22.04
     outputs:
       RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
 
     steps:
-      - uses: actions/checkout@v4
-      # 查询版本号（tag）
-      - name: Get commit ID
-        id: commit_id
-        run: echo "::set-output name=commit_id::$(git rev-parse --short HEAD)"
+      - uses: actions/checkout@v2
 
-      # 根据查询到的版本号创建 release
+      - name: Get tag version
+        id: tag_version
+        run: |
+          TAG_NAME=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag_name::${TAG_NAME}"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.commit_id.outputs.commit_id }}
-          release_name: Release ${{ steps.commit_id.outputs.commit_id }}
+          tag_name: ${{ steps.tag_version.outputs.tag_name }}
+          release_name: Release ${{ steps.tag_version.outputs.tag_name }}
           body: "See the assets to download this version and install."
 
-  # 编译 Tauri
   build-tauri:
+    permissions: write-all
     needs: create-release
     strategy:
       fail-fast: false
@@ -46,23 +44,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
-      # 安装 Rust
       - name: Install Rust stable
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 
-      - name: Install dependencies (Ubuntu only)
+      - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-22.04'
         run: |
-          sudo apt update
+          sudo apt-get update
           sudo apt install -y libgtk-3-dev libappindicator3-dev libasound2-dev librsvg2-dev libsoup2.4-dev libwebkit2gtk-4.0-dev
 
-      # 安装依赖执行构建，以及推送 github release
-      - name: Install app dependencies and build it
-        # 这里的pubhome要修改为你package.json里面配置的编译命令
-        run: bun i && bun tauri build
-
+      - name: Install dependencies and build
+        run: bun install
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
