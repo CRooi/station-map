@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="bottom-right-container">
         <LevelBar />
 
         <Time />
@@ -11,4 +11,8 @@ import LevelBar from './LevelBar.vue'
 import Time from './Time.vue'
 </script>
 
-<style></style>
+<style>
+#bottom-right-container {
+    z-index: 998;
+}
+</style>
