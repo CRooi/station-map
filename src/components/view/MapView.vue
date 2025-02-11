@@ -5,6 +5,7 @@ import maplibre from 'maplibre-gl'
 import axios from 'axios'
 
 import { map, map2, DATA, settings } from '../../utils/store'
+import maplibregl from 'maplibre-gl'
 
 onMounted(async () => {
     map.value = new maplibre.Map({
@@ -137,12 +138,25 @@ onBeforeUnmount(() => {
 })
 
 const fitChinaMainlandBounds = () => {
-    map.value.fitBounds([[136.0765, 55.33], [72.4951, 15.58]], { animate: false })
+    map.value.fitBounds(
+        [
+            new maplibregl.LngLat(72.4951, 15.58),
+            new maplibregl.LngLat(136.0765, 55.33)
+        ],
+        { animate: false }
+    )
 }
 
 const fitSouthChinaSeaBounds = () => {
-    map2.value.fitBounds([[122.56, 23.74], [107.15, 2.68]], { animate: false })
+    map2.value.fitBounds(
+        [
+            new maplibregl.LngLat(107.15, 2.68),
+            new maplibregl.LngLat(122.56, 23.74)
+        ],
+        { animate: false }
+    )
 }
+
 </script>
 
 <style></style>
