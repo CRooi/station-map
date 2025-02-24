@@ -20,36 +20,39 @@
     <DataWorker v-if="isSettingsLoaded" />
 
     <div class="p-2 absolute w-full min-h-screen max-h-screen bg-[#242424]" style="z-index: 999;" v-if="isShowSettings">
-        <!-- <div class="cursor-pointer flex items-center" @click="isShowSettings = false">
-            <t-icon size="large" name="chevron-left" />
-            <div class="text-2xl" style="font-family: OPPOSans-B;">设置</div>
-        </div> -->
+        <div class="p-4">
+            <div class="text-xl font-bold mb-4 select-none cursor-default">设置</div>
 
-        <div>
-            <div class="text-lg select-none cursor-default">地图显示</div>
+            <div class="space-y-4">
+                <!-- 地图设置部分 -->
+                <div>
+                    <div class="text-base font-medium select-none cursor-default mb-2 flex items-center">
+                        <t-icon name="map" class="mr-2" />
+                        地图显示
+                    </div>
 
-            <div class="ml-2">
-                <div class="flex justify-between">
-                    <div>启用</div>
-                    <t-switch v-model="settingsInput.map.enabled" />
-                </div>
+                    <div class="ml-2 space-y-2">
+                        <div
+                            class="flex justify-between items-center p-1.5 rounded-lg hover:bg-[#2a2a2a] transition-colors">
+                            <div class="text-gray-300">启用地图</div>
+                            <t-switch v-model="settingsInput.map.enabled" />
+                        </div>
 
-                <div class="flex justify-between">
-                    <div>展示数据类型</div>
-
-                    <t-select size="small" v-model="settingsInput.map.type" class="max-w-48">
-                        <t-option key="shindo" label="震度 (JMA)" value="shindo" />
-                        <t-option key="pga" label="峰值加速度 (PGA)" value="pga" />
-                    </t-select>
+                        <div
+                            class="flex justify-between items-center p-1.5 rounded-lg hover:bg-[#2a2a2a] transition-colors">
+                            <div class="text-gray-300">展示数据类型</div>
+                            <t-select size="small" v-model="settingsInput.map.type" class="max-w-48">
+                                <t-option key="shindo" label="震度 (JMA)" value="shindo" />
+                                <t-option key="pga" label="峰值加速度 (PGA)" value="pga" />
+                            </t-select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="absolute bottom-2 right-2 flex">
-                <t-button theme="default" @click="saveSettings()">保存并退出</t-button>
-
-                <div class="ml-2">
-                    <t-button @click="cancelSettings()">取消</t-button>
-                </div>
+            <div class="absolute bottom-4 right-4 flex space-x-2">
+                <t-button theme="primary" @click="saveSettings()">保存并退出</t-button>
+                <t-button theme="default" variant="outline" @click="cancelSettings()">取消</t-button>
             </div>
         </div>
     </div>
